@@ -34,7 +34,7 @@ app.use(express.json())
 // });
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -92,7 +92,7 @@ app.delete('/users/del', function (req, res, next) {
     'DELETE FROM `employees` WHERE id = ?',
     [req.body.id],
     function (err, results) {
-    return [res.json(results),res.json('Deleted')]
+    return res.json(results)
      
       
     }
