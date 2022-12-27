@@ -99,6 +99,7 @@ app.delete('/users/del', function (req, res, next) {
     }
   );
 })
+
 //update type 1
 // app.put('users/update', function (req, res, next) {
 //   let id = req.body.id
@@ -150,7 +151,7 @@ app.delete('/users/del', function (req, res, next) {
 //         // return res.send({
 //         //   error:false,data:result,message:message
 //         // })
-        
+
 //       }
 //     )
 //   // }
@@ -182,8 +183,38 @@ app.put('/users/update', function (req, res, next) {
       req.body.blood,
       req.body.id
     ],
-    function(err, results) {
+    function (err, results) {
       res.json(results);
     }
   );
+})
+
+//customer
+//add customer
+app.post('/customer/add', function (req, res, next) {
+connection.query(
+  'INSERT INTO `customers` ( `number_id`, `fname`, `lname`, `phone_number`, `sex`, `blood`,`drug_allergy`,`congenital_disease`,`etc_note`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [req.body.number_id, 
+      req.body.fname, 
+      req.body.lname, 
+      req.body.phone_number, 
+      req.body.sex, 
+      req.body.blood, 
+      req.body.drug_allergy, 
+      req.body.congenital_diseaset, 
+      req.body.etc_note],
+    function (err, results) {
+      res.json(results);
+    }
+)
+})
+
+//get all customers
+app.get('/customer/all',function(req,res,next){
+  connection.query(
+    'SELECT * FROM `customers`',
+    function (err,result,field) {
+      res.json(result)
+    }
+  )
 })
