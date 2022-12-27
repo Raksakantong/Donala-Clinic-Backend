@@ -218,3 +218,18 @@ app.get('/customer/all',function(req,res,next){
     }
   )
 })
+
+//delete customer
+app.delete('/customer/delete',function (req,res,next) {
+  connection.query(
+    'DELETE FROM `customers` WHERE number_id = ?',
+    [req.body.number_id],
+    function (err,result) {
+      res.json(result)
+    }
+  )
+  
+})
+
+
+
