@@ -189,7 +189,7 @@ app.put('/users/update', function (req, res, next) {
   );
 })
 
-//customer
+//------------------------------customer---------------------------------//
 //add customer
 app.post('/customer/add', function (req, res, next) {
 connection.query(
@@ -210,7 +210,7 @@ connection.query(
 })
 
 //get all customers
-app.get('/customer/all',function(req,res,next){
+app.get('/customer',function(req,res,next){
   connection.query(
     'SELECT * FROM `customers`',
     function (err,result,field) {
@@ -229,6 +229,46 @@ app.delete('/customer/delete',function (req,res,next) {
     }
   )
   
+})
+
+//get some customer
+app.get('/customer/:id', function (req, res, next) {
+
+  const id = req.params.id;
+  connection.query(
+    'SELECT * FROM `customers` WHERE `number_id` = ?',
+    [id],
+    function (err, results) {
+      if (!results) {
+        res.json(null)
+      } else {
+        res.json(results);
+      }
+
+    }
+  );
+})
+
+//update customer
+app.put('/customer/update', function (req, res, next) {
+  connection.query(
+    'UPDATE  `customers` SET `number_id` = ?, `fname` = ?, `lname` = ?, `phone_number` = ?, `sex` = ?, `blood` = ?, `drug_allergy` = ?, `congenital_disease` = ?,`etc_note` = ?,  WHERE number_id = ?',
+    [
+      req.body.number_id,
+      req.body.fname,
+      req.body.lname,
+      req.body.phone_number,
+      req.body.sex,
+      req.body.blood,
+      req.body.drug_allergy,
+      req.body.congenital_diseaset,
+      req.body.etc_note,
+      req.body.number_id
+    ],
+    function (err, results) {
+      res.json(results);
+    }
+  );
 })
 
 
