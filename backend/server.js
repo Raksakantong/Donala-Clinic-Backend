@@ -276,5 +276,82 @@ app.put('/customers/edit', function (req, res, next) {
   );
 })
 
+//------------------------------doctor-------------------------------//
+//add doctor
+app.post('/doctor/add', function (req, res, next) {
+  connection.query(
+    'INSERT INTO `doctors` (  `fname`, `lname`, `password`) VALUES ( ?, ?, ?)',
+      [
+        req.body.fname, 
+        req.body.lname, 
+        req.body.password
+      ],
+      function (err, results) {
+        res.json(results);
+      }
+  )
+  })
+  
+  //get all doctors
+  app.get('/doctor',function(req,res,next){
+    connection.query(
+      'SELECT * FROM `doctors`',
+      function (err,result,field) {
+        res.json(result)
+      }
+    )
+  })
+  
+  //delete doctor
+  app.delete('/doctor/delete',function (req,res,next) {
+    connection.query(
+      'DELETE FROM `doctors` WHERE id = ?',
+      [req.body.id],
+      function (err,result) {
+        res.json(result)
+      }
+    )
+    
+  })
+  
+  //get some doctor
+  app.get('/doctor/:id', function (req, res, next) {
+  
+    const id = req.params.id;
+    connection.query(
+      'SELECT * FROM `doctors` WHERE `id` = ?',
+      [id],
+      function (err, results) {
+        if (!results) {
+          res.json(null)
+        } else {
+          res.json(results);
+        }
+  
+      }
+    );
+  })
+  
+  //update doctor
+  app.put('/doctor/edit', function (req, res, next) {
+    connection.query(
+      'UPDATE  `doctors` SET `fname` = ?, `lname` = ?  WHERE id = ?',
+      [
+        req.body.fname,
+        req.body.lname,
+        req.body.id
+      ],
+      function (err, results) {
+        if (results) {
+          res.json(results);
+        }
+        else{
+          res.json(err)
+        }
+        
+      }
+    );
+  })
+
 
 
