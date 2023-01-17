@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 31, 2022 at 04:23 PM
+-- Generation Time: Jan 09, 2023 at 04:47 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.1.12
 
@@ -44,12 +44,11 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`number_id`, `fname`, `lname`, `phone_number`, `sex`, `blood`, `drugAllergy`, `congenitalDisease`, `etcNote`) VALUES
-('0000000000000', 'Natinan', 'R.', '0949268525', 'female', 'B', 'ไม่มี', 'ไม่มี', '-'),
 ('00000000000678', 'Natinan', 'Sriphut.', '0949268524', 'female', 'B', 'ไม่มี', 'ไม่มี', 'ชอบลูกชิ้นทอด1'),
 ('1111111111231', 'samai', 'siri', '0612345678', 'male', 'O', 'พารา', 'ไข้หวัด2', 'คนประหลด เอ้ยประหลาด'),
 ('1234567654567', 'แจ่มใส', 'ร่าเริง', '0612345671', 'female', 'AB', 'ไม่มี', 'ไม่มี', '-'),
 ('1234567890124', 'somsee56', 'sumruey2', '0612345678', 'male', 'O', 'ไม่มี', 'ขาดเธอไม่ได้', 'โดนัทยังมีรู แล้วเมื่อไหร่ยูจะมีใจ'),
-('1341500313357', 'Teeranat', 'Sriphut', '011111111', 'female', 'B', 'ไม่มี', 'ไม่มี', 'ชอบพุดดิ้ง');
+('1341500313357', 'Teeranat', 'Sriphut', '011111111', 'female', 'ฺB', 'ไม่มี', 'โรคติดแฟน', 'ชอบพุดดิ้ง');
 
 -- --------------------------------------------------------
 
@@ -69,7 +68,9 @@ CREATE TABLE `doctors` (
 --
 
 INSERT INTO `doctors` (`id`, `fname`, `lname`, `password`) VALUES
-(1, 'หมอเอ', 'รุ่งเรือง', '00000001');
+(1, 'หมอเอ', 'รุ่งเรือง', '00000001'),
+(5, 'somchay06', 'ร่าเริงจังนะ', '1'),
+(6, 'หมอบี', 'ด็อกเตอร์', '12345');
 
 -- --------------------------------------------------------
 
@@ -97,7 +98,7 @@ CREATE TABLE `employees` (
 
 INSERT INTO `employees` (`id`, `number_id`, `fname`, `lname`, `start_date`, `date_of_birth`, `age`, `sex`, `height`, `weight`, `blood`) VALUES
 (1, '1341500313357', 'Natinan', 'Raksakantong', '6/12/2022', '5/12/2022', 1, 'female', 165, 42, 'B'),
-(8, '1459900891397', 'นัวเนีย', 'สำรวย', '13/12/2020', '2/1/1998', 23, 'male', 150, 45, 'AB'),
+(8, '1459900891397', 'นัวเนีย', 'สำรวย', '13/12/2020', '2/1/1998', 23, 'male', 150, 45, 'O'),
 (9, '1234567890123', 'somchay', 'sumruey', '7/11/2022', '12/12/1999', 23, 'male', 174, 88, 'O');
 
 -- --------------------------------------------------------
@@ -150,7 +151,7 @@ ALTER TABLE `treatments`
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `employees`
