@@ -351,7 +351,7 @@ app.delete("/doctor/delete", function (req, res, next) {
 app.get("/doctor/:id", function (req, res, next) {
   const id = req.params.id;
   connection.query(
-    "SELECT * FROM `doctors` WHERE `id` = ?",
+    "SELECT * FROM `doctors` WHERE `number_id` = ?",
     [id],
     function (err, results) {
       if (!results) {
