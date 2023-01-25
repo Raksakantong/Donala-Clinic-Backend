@@ -62,23 +62,20 @@ app.post("/login", function (req, res) {
           function (err2, result2) {
             if (result2.length > 0) {
               res.json(result2);
-            } 
-            else if (result2 <= 0) {
+            } else if (result2 <= 0) {
               connection.query(
                 "SELECT * FROM `ower` WHERE `number_id` = ? AND `password` = ?  ",
                 [req.body.username, req.body.password],
-                function (err3,result3) {
+                function (err3, result3) {
                   if (result3.length > 0) {
-                     res.json(result3)
-                  }
-                  else{
-                    res.json('User not found')
+                    res.json(result3);
+                  } else {
+                    res.json("User not found");
                   }
                 }
               );
-            }
-            else{
-              res.json('user not found 1')
+            } else {
+              res.json("user not found 1");
             }
           }
         );
@@ -374,6 +371,25 @@ app.put("/doctor/edit", function (req, res, next) {
       } else {
         res.json(err);
       }
+    }
+  );
+});
+
+//doctor add treatment record
+app.post("/treatment/add", function (req, res, next) {
+  connection.query(
+    "INSERT INTO `treatments` ( `case_name`,`customer_id`, `case_detail`,`price` ,`date`) VALUES ( ?, ?,?,?,?)",
+    [
+      req.body.case_name,
+      req.body.customer_id,
+      req.body.case_detail,
+      req.body.price,
+      req.body.date,
+    ],
+    function (err, results) {
+      if (results) {
+        res.json(results);
+      } else [res.json(err)];
     }
   );
 });
