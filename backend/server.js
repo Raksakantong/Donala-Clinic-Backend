@@ -393,3 +393,17 @@ app.post("/treatment/add", function (req, res, next) {
     }
   );
 });
+
+app.get('/treatment/show',function (req,res,next) {
+  connection.query(
+    "SELECT * FROM `treatments` ",
+    function (err,results) {
+      if (!results) {
+        res.json(err)
+      }
+      else{
+        res.json(results)
+      }
+    }
+  )
+})
