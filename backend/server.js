@@ -237,7 +237,7 @@ app.put("/users/update", function (req, res, next) {
 //add customer
 app.post("/customer/add", function (req, res, next) {
   connection.query(
-    "INSERT INTO `customers` ( `number_id`, `fname`, `lname`, `phone_number`, `sex`, `blood`,`drug_allergy`,`congenital_disease`,`etc_note`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO `customers` ( `number_id`, `fname`, `lname`, `phone_number`, `sex`, `blood`,`drugAllergy`,`congenitalDisease`,`etcNote`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
       req.body.number_id,
       req.body.fname,
