@@ -112,7 +112,7 @@ app.get("/users/:id", function (req, res, next) {
 app.post("/users/add", function (req, res, next) {
   // res.header( "Access-Control-Allow-Origin" );
   connection.query(
-    "INSERT INTO `employees` ( `number_id`, `fname`, `lname`, `start_date`, `date_of_birth`, `age`, `sex`, `height`, `weight`, `blood`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?)",
+    "INSERT INTO `employees` ( `number_id`, `fname`, `lname`, `start_date`, `date_of_birth`, `age`, `sex`, `height`, `weight`, `blood`,`role`,`password`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?)",
     [
       req.body.number_id,
       req.body.fname,
@@ -124,10 +124,18 @@ app.post("/users/add", function (req, res, next) {
       req.body.height,
       req.body.weight,
       req.body.blood,
+      req.body.role,
+      req.body.password
     ],
     function (err, results) {
       // res.json(results);
-      res.json("Create user successfully");
+      if (!results) {
+        res.json(err)
+      }
+      else{
+        res.json("Create user successfully");
+      }
+      
     }
   );
 });
