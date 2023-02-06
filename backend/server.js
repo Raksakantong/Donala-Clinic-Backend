@@ -1,19 +1,32 @@
 var express = require("express");
 var cors = require("cors");
 const mysql = require("mysql2");
-const { Message } = require("@mui/icons-material");
+// const { Message } = require("@mui/icons-material");
 
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "mydb",
   password: "root",
+  port: '8889'
 });
+
+connection.connect((err)=>{
+  if(err){
+    console.log("error type ===> ",err);
+  }
+  else{
+    console.log('====================================');
+    console.log("passssssed");
+    console.log('====================================');
+  }
+})
 
 var app = express();
 app.use(cors());
 app.use(express.json());
 
+const port = process.env.PORT || 3000;
 // Add headers before the routes are defined
 // app.use(function (req, res, next) {
 
@@ -43,8 +56,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.listen(5000, function () {
-  console.log("CORS-enabled web server listening on port 5000");
+app.listen(port, function () {
+  console.log(`CORS-enabled web server listening on port 5000 ${port}`);
 });
 
 app.post("/login", function (req, res) {
@@ -97,7 +110,7 @@ app.get("/users", function (req, res, next) {
 app.get("/users/:id", function (req, res, next) {
   const id = req.params.id;
   connection.query(
-    "SELECT * FROM `employees` WHERE `id` = ?",
+    "SELECT * FROM `employees` WHERE `number_id` = ?",
     [id],
     function (err, results) {
       if (!results) {
@@ -144,7 +157,7 @@ app.delete("/users/del", function (req, res, next) {
   // res.header( "Access-Control-Allow-Origin", );
 
   connection.query(
-    "DELETE FROM `employees` WHERE id = ?",
+    "DELETE FROM `employees` WHERE number_id = ?",
     [req.body.id],
     function (err, results) {
       return res.json(results);
@@ -221,7 +234,7 @@ app.delete("/users/del", function (req, res, next) {
 // update 2
 app.put("/users/update", function (req, res, next) {
   connection.query(
-    "UPDATE  `employees` SET `number_id` = ?, `fname` = ?, `lname` = ?, `start_date` = ?, `date_of_birth` = ?, `age` = ?, `sex` = ?, `height` = ?,`weight` = ?, `blood` = ? WHERE id = ?",
+    "UPDATE  `employees` SET  `fname` = ?, `lname` = ?, `start_date` = ?, `date_of_birth` = ?, `age` = ?, `sex` = ?, `height` = ?,`weight` = ?, `blood` = ? WHERE number_id =  ?",
     [
       req.body.number_id,
       req.body.fname,
@@ -233,10 +246,16 @@ app.put("/users/update", function (req, res, next) {
       req.body.height,
       req.body.weight,
       req.body.blood,
-      req.body.id,
+      req.body.number_id,
     ],
     function (err, results) {
-      res.json(results);
+      if (err) {
+        res.json(err)
+      }
+      else{
+        res.json(results);
+      }
+      
     }
   );
 });
