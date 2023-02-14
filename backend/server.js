@@ -236,7 +236,6 @@ app.put("/users/update", function (req, res, next) {
   connection.query(
     "UPDATE  `employees` SET  `fname` = ?, `lname` = ?, `start_date` = ?, `date_of_birth` = ?, `age` = ?, `sex` = ?, `height` = ?,`weight` = ?, `blood` = ? WHERE number_id =  ?",
     [
-      req.body.number_id,
       req.body.fname,
       req.body.lname,
       req.body.start_date,
