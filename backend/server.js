@@ -248,8 +248,9 @@ app.put("/users/update", function (req, res, next) {
       req.body.number_id,
     ],
     function (err, results) {
-      if (err) {
-        res.json(err)
+      if (!results) {
+        res.json("บักทึกไม่สำเร็จ")
+
       }
       else{
         res.json(results);
@@ -415,7 +416,7 @@ app.post("/treatment/add", function (req, res, next) {
     function (err, results) {
       if (results) {
         res.json(results);
-      } else [res.json(err)];
+      } else {res.json(err)};
     }
   );
 });
