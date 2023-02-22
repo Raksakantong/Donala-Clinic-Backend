@@ -97,6 +97,51 @@ app.post("/login", function (req, res) {
   );
 });
 
+// --------------------------------------- owner---------------------------------//
+
+
+
+// owner methods
+// get some owner
+app.get("/owner/:id", function (req, res) {
+  const id = req.params.id;
+  connection.query(
+    "SELECT * FROM `ower` WHERE `number_id` = ?",
+    [id],
+    function (err, results) {
+      if (results.length <= 0) {
+        res.json(err);
+      } else {
+        res.json(results);
+      }
+    }
+  );
+});
+
+// update owner
+app.put("/owner/update", function (req, res, next) {
+  connection.query(
+    "UPDATE  `ower` SET  `fname` = ?, `lname` = ?,`password` = ? WHERE number_id =  ?",
+    [
+      req.body.fname,
+      req.body.lname,
+      req.body.password,
+      req.body.number_id,
+    ],
+    function (err, results) {
+      if (!results) {
+        // res.json("บักทึกไม่สำเร็จ")
+        res.json(err)
+
+      }
+      else{
+        res.json(results);
+      }
+      
+    }
+  );
+});
+
 //employees methods
 app.get("/users", function (req, res, next) {
   connection.query(
