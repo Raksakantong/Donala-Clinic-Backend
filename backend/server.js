@@ -390,10 +390,16 @@ app.put("/customers/edit", function (req, res, next) {
 //add doctor
 app.post("/doctor/add", function (req, res, next) {
   connection.query(
-    "INSERT INTO `doctors` (  `fname`, `lname`, `password`) VALUES ( ?, ?, ?)",
-    [req.body.fname, req.body.lname, req.body.password],
+    "INSERT INTO `doctors` (  `fname`, `lname`,`specialist`,`role`,`password`) VALUES ( ?, ?, ?, ?, ?)",
+    [req.body.fname, req.body.lname,req.body.specialist,req.body.role,req.body.password],
     function (err, results) {
-      res.json(results);
+      if (!results) {
+        res.json(err)
+      }
+      else{
+        res.json(results);
+      }
+      
     }
   );
 });
@@ -408,7 +414,7 @@ app.get("/doctor", function (req, res, next) {
 //delete doctor
 app.delete("/doctor/delete", function (req, res, next) {
   connection.query(
-    "DELETE FROM `doctors` WHERE id = ?",
+    "DELETE FROM `doctors` WHERE number_id = ?",
     [req.body.id],
     function (err, result) {
       res.json(result);
@@ -435,8 +441,8 @@ app.get("/doctor/:id", function (req, res, next) {
 //update doctor
 app.put("/doctor/edit", function (req, res, next) {
   connection.query(
-    "UPDATE  `doctors` SET `fname` = ?, `lname` = ?  WHERE id = ?",
-    [req.body.fname, req.body.lname, req.body.id],
+    "UPDATE  `doctors` SET `fname` = ?, `lname` = ?,`specialist` = ?  WHERE number_id = ?",
+    [req.body.fname, req.body.lname,req.body.specialist, req.body.id],
     function (err, results) {
       if (results) {
         res.json(results);
